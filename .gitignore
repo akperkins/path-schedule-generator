@@ -22,6 +22,8 @@ app/build
 **/.idea/libraries
 **/.idea/dictionaries
 
+/output
+
 *.class
 
 # Mobile Tools for Java (J2ME)

@@ -28,7 +28,6 @@ public class Driver {
                 JSONObject jsonObject = jsonConverter.convertData(rawLineData);
                 jsonSaver.saveToDisk(jsonObject);
             } catch (IOException e) {
-                System.err.println(String.format("Unable to obtain website url=%s", url));
                 e.printStackTrace();
             } catch (LineDataNotFoundException e) {
                 System.err.println(e.getMessage());
