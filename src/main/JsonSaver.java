@@ -1,5 +1,7 @@
 package main;
 
+import com.google.gson.Gson;
+import main.domain.Line;
 import org.json.simple.JSONObject;
 
 import java.io.File;
@@ -15,14 +17,19 @@ import java.nio.file.Paths;
  * This class is responsible for writing the json object we created to a file. todo write tests
  */
 public class JsonSaver {
-
     public static final String OUTPUT_DIRECTORY_NAME = "output";
 
-    public void saveToDisk(JSONObject jsonObject) throws IOException {
+    final private Gson gson;
+
+    public JsonSaver(Gson gson) {
+        this.gson = gson;
+    }
+
+    public void saveToDisk(Line line) throws IOException {
         Files.createDirectories(Paths.get(OUTPUT_DIRECTORY_NAME));
-        String name = (String)jsonObject.get(JsonConverter.NAME_KEY);
+        String name = line.getName();
         try(  PrintWriter out = new PrintWriter(String.format("%s/%s.json", OUTPUT_DIRECTORY_NAME, name))){
-            out.println(jsonObject.toJSONString());
+            out.println(gson.toJson(line));
         }
     }
 }

@@ -1,12 +1,14 @@
 package main;
 
+import main.domain.Line;
+import main.domain.Route;
+import main.domain.TrainStop;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -23,12 +25,27 @@ public class JsoupParser implements SchedulerParser {
     public static final String STRONG_TAG = "strong";
 
     @Override
-    public RawLineData parse(String html) throws LineDataNotFoundException {
+    public Line parse(String html) throws LineDataNotFoundException {
         Document document = Jsoup.parse(html);
         String name = getName(document);
-        List<String> stops = getStops(document);
-        List<List<String>> routes = getRoutes(document);
-        return new RawLineData(name,stops,routes);
+        List<String> stopsStrings = getStops(document);
+        List<TrainStop> trainStops = convertStops(stopsStrings);
+        List<List<String>> routesStrings = getRoutes(document);
+        List<Route> routes = convertTrainStops(routesStrings);
+        return new Line(name, trainStops, routes);
+    }
+
+    private List<Route> convertTrainStops(List<List<String>> routesStrings) {
+        return null;
+    }
+
+    private List<TrainStop> convertStops(List<String> stopsStrings) {
+        List<TrainStop> trainStops = new ArrayList<>();
+        for(String stopString: stopsStrings){
+            TrainStop trainStop = TrainStop.convert(stopString);
+            trainStops.add(trainStop);
+        }
+        return trainStops;
     }
 
     private List<List<String>> getRoutes(Document document) throws LineDataNotFoundException {

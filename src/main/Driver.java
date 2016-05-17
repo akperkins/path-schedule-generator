@@ -1,5 +1,7 @@
 package main;
 
+import com.google.gson.Gson;
+import main.domain.Line;
 import org.json.simple.JSONObject;
 
 import java.io.*;
@@ -18,16 +20,15 @@ public class Driver {
         Scanner scanner = setUpScanner(args[0]);
         HtmlProvider htmlProvider  = new HtmlProvider();
         JsoupParser jsoupParser = new JsoupParser();
-        JsonConverter jsonConverter = new JsonConverter();
-        JsonSaver jsonSaver = new JsonSaver();
+        Gson gson = new Gson();
+        JsonSaver jsonSaver = new JsonSaver(gson);
         while(scanner.hasNextLine()){
             String url = scanner.nextLine();
             StateValidator.assertNotNullOrEmpty(url);
             try {
                 String html = htmlProvider.getHtml(url);
-                RawLineData rawLineData = jsoupParser.parse(html);
-                JSONObject jsonObject = jsonConverter.convertData(rawLineData);
-                jsonSaver.saveToDisk(jsonObject);
+                Line rawLineData = jsoupParser.parse(html);
+                jsonSaver.saveToDisk(rawLineData);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (LineDataNotFoundException e) {
