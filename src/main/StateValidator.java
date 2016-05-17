@@ -2,6 +2,8 @@ package main;
 
 /**
  * Created by andreperkins on 5/17/16.
+ *
+ * This class is used to perform assertions of the code at various points during it's execution.
  */
 public class StateValidator {
     public static void assertNonNulOrEmptyElements(String[] args) {

@@ -11,6 +11,9 @@ import java.util.List;
 
 /**
  * Created by andreperkins on 5/17/16.
+ *
+ * This class is responsible for reading through the current understanding of the PATH website format and then extracting
+ * out the relevant Line information.
  */
 public class JsoupParser implements SchedulerParser {
 
