@@ -9,9 +9,13 @@ public class StateValidator {
             throw new AssertionError();
         }
         for(String argument: args){
-            if(argument == null || argument.trim().length() == 0){
-                throw new AssertionError();
-            }
+            assertNotNullOrEmpty(argument);
+        }
+    }
+
+    public static void assertNotNullOrEmpty(String argument) {
+        if(argument == null || argument.trim().length() == 0){
+            throw new AssertionError();
         }
     }
 }

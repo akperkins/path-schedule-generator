@@ -2,10 +2,8 @@ package main;
 
 import org.json.simple.JSONObject;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.Scanner;
 
 /**
  * Created by andreperkins on 5/17/16.
@@ -17,11 +15,14 @@ import java.io.PrintWriter;
 public class Driver {
     public static void main(String... args){
         StateValidator.assertNonNulOrEmptyElements(args);
+        Scanner scanner = setUpScanner(args[0]);
         HtmlProvider htmlProvider  = new HtmlProvider();
         JsoupParser jsoupParser = new JsoupParser();
         JsonConverter jsonConverter = new JsonConverter();
         JsonSaver jsonSaver = new JsonSaver();
-        for(String url: args){
+        while(scanner.hasNextLine()){
+            String url = scanner.nextLine();
+            StateValidator.assertNotNullOrEmpty(url);
             try {
                 String html = htmlProvider.getHtml(url);
                 RawLineData rawLineData = jsoupParser.parse(html);
@@ -33,5 +34,16 @@ public class Driver {
                 System.err.println(e.getMessage());
             }
         }
+    }
+
+    private static Scanner setUpScanner(String arg) {
+        File file = new File(arg);
+        Scanner scanner;
+        try {
+            scanner = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            throw new IllegalArgumentException(e);
+        }
+        return scanner;
     }
 }
