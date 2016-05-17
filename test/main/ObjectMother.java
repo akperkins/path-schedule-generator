@@ -69,7 +69,7 @@ public class ObjectMother {
             "<link rel=\"stylesheet\" type=\"text/css\" href=\"/css/path_schedules.css\"/>\n" +
             "</head>\n" +
             "<body>\n" +
-            "<h2>33rd Street - Hoboken | Weekday Service</h2>\n" +
+            "<h2>33rd Street - Hoboken | Saturday Service</h2>\n" +
             "<p class=\"style13\">Travel time is 14 minutes. </p>\n" +
             "<table cellspacing=\"0\" cellpadding=\"0\">\n" +
             "  <thead>\n" +
@@ -124,7 +124,7 @@ public class ObjectMother {
             "<link rel=\"stylesheet\" type=\"text/css\" href=\"/css/path_schedules.css\"/>\n" +
             "</head>\n" +
             "<body>\n" +
-            "<h2>33rd Street - Hoboken | Weekday Service</h2>\n" +
+            "<h2>33rd Street - Hoboken | Sunday Service</h2>\n" +
             "<p class=\"style13\">Travel time is 14 minutes. </p>\n" +
             "<table cellspacing=\"0\" cellpadding=\"0\">\n" +
             "  <thead>\n" +

@@ -53,6 +53,11 @@ public enum TrainStop {
         this.serializedName = serializedName;
     }
 
+    /**
+     *
+     * Finds the {@link TrainStop} that is associated with the {@code stopString} that is passed in. Throws
+     * {@link IllegalArgumentException} if the string is not associated with any stops.
+     */
     public static TrainStop convert(String stopString) {
         for(TrainStop stop: values()){
             if(stopString.equalsIgnoreCase(stop.serializedName)){

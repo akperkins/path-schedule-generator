@@ -9,11 +9,11 @@ import com.google.gson.annotations.SerializedName;
  *
  */
 public enum DayOfWeek {
-    @SerializedName("0")
+    @SerializedName("weekday")
     WEEKDAY(0),
-    @SerializedName("1")
+    @SerializedName("saturday")
     SATURDAY(1),
-    @SerializedName("2")
+    @SerializedName("sunday")
     SUNDAY(2);
 
     /**
@@ -27,5 +27,9 @@ public enum DayOfWeek {
 
     public int getOrder() {
         return order;
+    }
+
+    public static DayOfWeek convert(String dayOfWeekString) {
+        return Enum.valueOf(DayOfWeek.class, dayOfWeekString);
     }
 }

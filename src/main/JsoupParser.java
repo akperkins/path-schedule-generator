@@ -1,5 +1,6 @@
 package main;
 
+import main.domain.DayOfWeek;
 import main.domain.Line;
 import main.domain.Route;
 import main.domain.TrainStop;
@@ -28,15 +29,29 @@ public class JsoupParser implements SchedulerParser {
     public Line parse(String html) throws LineDataNotFoundException {
         Document document = Jsoup.parse(html);
         String name = getName(document);
+        DayOfWeek dayOfWeek = getDayOfWeek(document);
         List<String> stopsStrings = getStops(document);
         List<TrainStop> trainStops = convertStops(stopsStrings);
         List<List<String>> routesStrings = getRoutes(document);
-        List<Route> routes = convertTrainStops(routesStrings);
+        List<Route> routes = convertTrainStops(dayOfWeek, routesStrings);
         return new Line(name, trainStops, routes);
     }
 
-    private List<Route> convertTrainStops(List<List<String>> routesStrings) {
-        return null;
+    private DayOfWeek getDayOfWeek(Document document) throws LineDataNotFoundException {
+        int obtainIndexOfNameString = 1;
+        String dayOfWeekString = getName(document, obtainIndexOfNameString);
+        dayOfWeekString = dayOfWeekString.split(" ")[0].toUpperCase();
+        DayOfWeek dayOfWeek = DayOfWeek.convert(dayOfWeekString);
+        return dayOfWeek;
+    }
+
+    private List<Route> convertTrainStops(DayOfWeek dayOfWeek, List<List<String>> routesStrings) {
+        List<Route> routes = new ArrayList<>();
+        for(List<String> stringList: routesStrings){
+            Route route = new Route(stringList, dayOfWeek);
+            routes.add(route);
+        }
+        return routes;
     }
 
     private List<TrainStop> convertStops(List<String> stopsStrings) {
@@ -91,9 +106,17 @@ public class JsoupParser implements SchedulerParser {
     }
 
     private String getName(Document document) throws LineDataNotFoundException {
-        String name;Elements elements = document.getElementsByTag(NAME_TAG);
+        int obtainIndexOfNameString = 0;
+        String name = getName(document, obtainIndexOfNameString);
+        return name;
+    }
+
+    private String getName(Document document, int obtainIndexOfNameString) throws LineDataNotFoundException {
+        String name;
+        Elements elements = document.getElementsByTag(NAME_TAG);
         if(elements.size() == 1){
-            name = elements.get(0).text();
+            String header = elements.get(0).text();
+            name = header.split("\\|")[obtainIndexOfNameString].trim();
         } else {
             throw new LineDataNotFoundException("At the time of the creation of this program, it was expected that" +
                     " there was only one h2 tag. Please update this program" +

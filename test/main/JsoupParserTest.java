@@ -29,7 +29,7 @@ public class JsoupParserTest {
     public void parseOutRawData_weekdayLine() throws Exception {
         String html = ObjectMother.VALID_WEEKDAY_HTML;
         Line actualRawData = jsoupParser.parse(html);
-        String expectedName = "33rd Street - Hoboken | Weekday Service";
+        String expectedName = "33rd Street - Hoboken";
         List<TrainStop> trainStops = Arrays.asList(TrainStop.STREET_33, TrainStop.STREET_23, TrainStop.STREET_14,
                 TrainStop.STREET_9, TrainStop.STREET_CHRISTOPHER, TrainStop.HOBOKEN);
         List<Route> expectedRoutes = new ArrayList<>();
@@ -44,7 +44,7 @@ public class JsoupParserTest {
     public void parseOutRawData_saturdayLine() throws Exception {
         String html = ObjectMother.VALID_SATURDAY_HTML;
         Line actualRawData = jsoupParser.parse(html);
-        String expectedName = "33rd Street - Hoboken | Saturday Service";
+        String expectedName = "33rd Street - Hoboken";
         List<TrainStop> trainStops = Arrays.asList(TrainStop.STREET_33, TrainStop.STREET_23, TrainStop.STREET_14,
                 TrainStop.STREET_9, TrainStop.STREET_CHRISTOPHER, TrainStop.HOBOKEN);
         List<Route> expectedRoutes = new ArrayList<>();
@@ -59,7 +59,7 @@ public class JsoupParserTest {
     public void parseOutRawData_sundayLine() throws Exception {
         String html = ObjectMother.VALID_SUNDAY_HTML;
         Line actualRawData = jsoupParser.parse(html);
-        String expectedName = "33rd Street - Hoboken | Sunday Service";
+        String expectedName = "33rd Street - Hoboken";
         List<TrainStop> trainStops = Arrays.asList(TrainStop.STREET_33, TrainStop.STREET_23, TrainStop.STREET_14,
                 TrainStop.STREET_9, TrainStop.STREET_CHRISTOPHER, TrainStop.HOBOKEN);
         List<Route> expectedRoutes = new ArrayList<>();
