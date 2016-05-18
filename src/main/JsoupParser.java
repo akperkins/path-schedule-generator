@@ -106,9 +106,15 @@ public class JsoupParser implements SchedulerParser {
     }
 
     private String getName(Document document) throws LineDataNotFoundException {
-        int obtainIndexOfNameString = 0;
-        String name = getName(document, obtainIndexOfNameString);
-        return name;
+        Elements elements = document.getElementsByTag(NAME_TAG);
+        if(elements.size() == 1){
+            String header = elements.get(0).text();
+            return header;
+        } else {
+            throw new LineDataNotFoundException("At the time of the creation of this program, it was expected that" +
+                    " there was only one h2 tag. Please update this program" +
+                    " to accommodate for the change that there was an unexpected number of h2 tags.");
+        }
     }
 
     private String getName(Document document, int obtainIndexOfNameString) throws LineDataNotFoundException {
@@ -117,6 +123,7 @@ public class JsoupParser implements SchedulerParser {
         if(elements.size() == 1){
             String header = elements.get(0).text();
             name = header.split("\\|")[obtainIndexOfNameString].trim();
+            name = name.replaceAll(",", "");
         } else {
             throw new LineDataNotFoundException("At the time of the creation of this program, it was expected that" +
                     " there was only one h2 tag. Please update this program" +

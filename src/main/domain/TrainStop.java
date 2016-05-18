@@ -24,7 +24,7 @@ public enum TrainStop {
     STREET_CHRISTOPHER("Chris St"),
 
     @SerializedName("Exchange")
-    EXCHANGE_PLACE("23 St"),
+    EXCHANGE_PLACE("Exchange"),
 
     @SerializedName("Grove St")
     STREET_GROVE("Grove St"),
